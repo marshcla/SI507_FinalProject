@@ -1,0 +1,26 @@
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<h2 style="font-size=30px; font-family=helvetica; margin-top: 35px;">You searched for:</h2>
+<h1 style="margin-bottom: 20px;"><span style="color: red;"><<</span> {{ word }} <span style="color: blue;">>></span></h1>
+<div>
+<img src="{{url_for('static', filename='img/donkey-elephant-boxing.jpg')}}" />
+</div>
+<div class="rep">
+{% if rs_len > 0 %}
+    <p class="gop">A headline from RedState.com:</p>
+    <p>{{ rs_headlines[0] }}</p>
+{% else %}
+    <p class="gop">No headline found from RedState.com</p>
+{% endif %}
+</div>
+<div class="lib">
+{% if itt_len > 0 %}
+    <p class="dem">A headline from InTheseTimes.com:</p>
+    <p>{{ itt_headlines[0] }}</p>
+{% else %}
+    <p class="dem">No headline found from InTheseTimes.</p>
+{% endif %}
+</div>
+<br>
