@@ -1,0 +1,57 @@
+p {
+  font-family: helvetica;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+p.gop {
+  font-family: helvetica;
+  color: white;
+  font-size: 20px;
+  background-color: red;
+  padding: 8px;
+}
+
+p.dem {
+  font-family: helvetica;
+  color: white;
+  font-size: 20px;
+  background-color: blue;
+  padding: 8px;
+}
+
+p.date {
+  font-size: 8px;
+}
+
+h2 {
+  font-family: helvetica;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 35px;
+}
+
+h1 {
+  font-family: helvetica;
+  color: black;
+  font-size: 35px;
+  text-align: center;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+}
+
+.rep, .lib {
+  float: left;
+  width: 49%;
+}
+
+.date {
+  float: right;
+  width: 49%;
+}
