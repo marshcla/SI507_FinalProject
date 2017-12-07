@@ -32,6 +32,22 @@ try:
 except:
     CACHE_DICTION = {}
 
+## Add Expiration Checker
+
+def has_cache_expired(timestamp_str, expire_str):
+    now = datetime.now()
+
+    cache_timestamp = datetime.strptime(timestamp_str, DATETIME_FORMAT)
+
+    delta = now - cache_timestamp
+    delta_in_days = delta.days
+    expire_in_days = 1
+
+    if expire_in_days > delta_in_days:
+        return False
+    else:
+        return True
+
 ## Retrieve cache data
 
 def retrieve_cache(url):
@@ -40,6 +56,12 @@ def retrieve_cache(url):
         url_dict = CACHE_DICTION[url]
         html = CACHE_DICTION[url]['html']
 
+        if has_cache_expired(url_dict['timestamp'], url_dict['expire_in_days']):
+            del CACHE_DICTION[url]
+            html = None
+        else:
+            html = CACHE_DICTION[url]['html']
+
     else:
         html = None
 
@@ -47,11 +69,11 @@ def retrieve_cache(url):
 
 ## Put into cache
 
-def put_in_cache(url, html):
+def put_in_cache(url, html, expire_in_days=1):
     CACHE_DICTION[url] = {
         'html': html,
-        'timestamp': datetime.now().strftime(DATETIME_FORMAT)
-        #'expire_in_days': expire_in_days
+        'timestamp': datetime.now().strftime(DATETIME_FORMAT),
+        'expire_in_days': expire_in_days
     }
 
     with open(CACHE_FNAME, 'w') as cache_file:
