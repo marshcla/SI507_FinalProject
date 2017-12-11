@@ -9,7 +9,6 @@ import csv
 from flask import Flask, render_template
 from flask_script import Manager
 import json
-import unittest
 from random import shuffle
 
 # -----------------------------------------------------------------------------
@@ -32,16 +31,16 @@ try:
 except:
     CACHE_DICTION = {}
 
-## Add Expiration Checker
+## Check cache expiration
 
-def has_cache_expired(timestamp_str, expire_str):
+def has_cache_expired(timestamp_str, expire_in_days=1):
     now = datetime.now()
 
     cache_timestamp = datetime.strptime(timestamp_str, DATETIME_FORMAT)
 
     delta = now - cache_timestamp
     delta_in_days = delta.days
-    expire_in_days = 1
+    expire_in_days = expire_in_days
 
     if expire_in_days > delta_in_days:
         return False
@@ -126,7 +125,6 @@ def redstate_stories_html(rs_data):
 
     return stories
 
-
 def redstate_headline_stories(redstate_story):
     story_dict = {}
     story_dict["title"] = redstate_story.find("h2").text
@@ -204,6 +202,7 @@ def inthesetimes_story_list(itt_stories):
 ## RedState
 rs_html = redstate_stories_html(rs_data)
 rs_headlines = redstate_story_list(rs_html)
+
 
 ## InTheseTimes
 itt_html = inthesetimes_stories_html(itt_data)
@@ -292,6 +291,7 @@ enter_data = data_entry(site_csv_list)
 sql = 'SELECT * FROM "headlines"'
 db_cursor.execute(sql)
 all_hl_results = db_cursor.fetchall()
+#print(type(all_hl_results[0].keys()))
 
 all_hls = []
 for r in all_hl_results:
@@ -314,7 +314,6 @@ all_itt_hls = db_cursor.fetchall()
 itt_hls = []
 for r in all_itt_hls:
     itt_hls.append(r)
-
 
 # -----------------------------------------------------------------------------
 # Class Definition
@@ -386,10 +385,6 @@ def headline_search(word):
 
     return render_template('headline.html', word=word, now=now, rs_len=rs_len, rs_headlines=rs_headlines, itt_len=itt_len, itt_headlines=itt_headlines)
 
+
 if __name__ == '__main__':
     manager.run()
-
-
-# -----------------------------------------------------------------------------
-# Test Suite
-# -----------------------------------------------------------------------------
