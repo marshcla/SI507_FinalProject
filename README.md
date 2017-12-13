@@ -20,10 +20,11 @@ Steps:
 1. Fork and clone the repository SI507_FinalProject
 2. Run requirements.txt to install all necessary libraries and modules to run the project (do this in a virtual environment if you so choose)
 3. Enter database credentials into the appropriate places in config.py
-4. Run code from the command line (don't forget to add runserver); this project requires no user input apart from the visualization component
-5. If installed successfully, the user should then go to localhost:5000/ and enter a search term in the form (which should look like Example_Form_Img) and click submit
-6. The resulting page should look something like Fin_Project_Ex.png
-7. To check the correctness of the program, run fin_project_tests.py
+4. Run final_project_database_setup.py to create the database
+5. Run fin_project.py (don't forget to add runserver to access visualization component) to scrape data and enter it into the database; this project requires no user input apart from the visualization component
+6. If installed successfully (using runserver), the user should then go to localhost:5000/ and enter a search term in the form (which should look like Example_Form_Img) and click submit
+7. The resulting page should look something like Fin_Project_Ex.png
+8. To check the correctness of the program, run fin_project_tests.py
 
 Note:
 
@@ -31,4 +32,4 @@ The caching system has been lightly adapted from the nytimes.py (from discussion
 
 Note 2:
 
-Ignore flask-requirements.txt and cache_file.json. Those were put on GitHub for safekeeping and are not necessary to run the code. 
+Ignore flask-requirements.txt and cache_file.json. Those were put on GitHub for safekeeping and are not necessary to run the code.
