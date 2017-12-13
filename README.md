@@ -28,3 +28,7 @@ Steps:
 Note:
 
 The caching system has been lightly adapted from the nytimes.py (from discussion section) caching setup.
+
+Note 2:
+
+Ignore flask-requirements.txt and cache_file.json. Those were put on GitHub for safekeeping and are not necessary to run the code. 
