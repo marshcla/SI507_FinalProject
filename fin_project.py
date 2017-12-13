@@ -6,7 +6,7 @@ import psycopg2
 import psycopg2.extras
 from config import *
 import csv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_script import Manager
 import json
 from random import shuffle
@@ -352,38 +352,45 @@ app = Flask(__name__)
 
 manager = Manager(app)
 
-@app.route('/headline/<word>')
-def headline_search(word):
-    word = word.lower()
+@app.route('/')
+def word():
+   return render_template('word.html')
+
+@app.route('/result', methods = ['POST', 'GET'])
+def result():
+    #word = word.lower()
     now = datetime.now()
-    rs_hl_insts = []
-    for hl in rs_hls:
-        rs_hl = Headline(hl)
-        rs_hl_insts.append(rs_hl.headline)
+    if request.method == 'GET':
+        result = request.args.get('word')
+        #print(result)
+        rs_hl_insts = []
+        for hl in rs_hls:
+            rs_hl = Headline(hl)
+            rs_hl_insts.append(rs_hl.headline)
 
-    rs_headlines = []
-    for x in rs_hl_insts:
-        if word in x.lower():
-            rs_headlines.append(x)
+        rs_headlines = []
+        for x in rs_hl_insts:
+            if result in x.lower():
+                rs_headlines.append(x)
 
-    rs_len = len(rs_headlines)
-    shuffle(rs_headlines)
+        rs_len = len(rs_headlines)
+        shuffle(rs_headlines)
 
-    itt_hl_insts = []
-    for hl in itt_hls:
-        itt_hl = Headline(hl)
-        itt_hl_insts.append(itt_hl.headline)
+        itt_hl_insts = []
+        for hl in itt_hls:
+            itt_hl = Headline(hl)
+            itt_hl_insts.append(itt_hl.headline)
 
-    itt_headlines = []
-    for y in itt_hl_insts:
-        if word in y.lower():
-            itt_headlines.append(y)
+        itt_headlines = []
+        for y in itt_hl_insts:
+            if result in y.lower():
+                itt_headlines.append(y)
 
-    itt_len = len(itt_headlines)
-    shuffle(itt_headlines)
+        itt_len = len(itt_headlines)
+        shuffle(itt_headlines)
 
 
-    return render_template('headline.html', word=word, now=now, rs_len=rs_len, rs_headlines=rs_headlines, itt_len=itt_len, itt_headlines=itt_headlines)
+    return render_template('headline.html', result=result, now=now, rs_len=rs_len, rs_headlines=rs_headlines, itt_len=itt_len, itt_headlines=itt_headlines)
 
 
 if __name__ == '__main__':
