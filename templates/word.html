@@ -6,9 +6,9 @@
 
    <body>
      <img src="{{url_for('static', filename='img/Truth-cartoon.jpg')}}" />
-     <h1 style="margin-top: 15px; color: black; padding: 8px;">Search the Headlines Database</h1>
+     <h1 style="margin-top: 15px; font-family: courier; color: black; padding: 8px;">Search the Headlines Database</h1>
       <form action = "http://localhost:5000/result" method = "GET">
-         <p><input type = "text" name = "word" /> </p>
+         <p><input type = "text" name = "word" style="width: 250px;"/> </p>
          <p><input type = "submit" value = "submit" /></p>
       </form>
 
